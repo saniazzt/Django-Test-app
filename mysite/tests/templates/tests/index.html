@@ -1,0 +1,13 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
+{% if latest_test_list %}
+    <ul>
+    {% for test in latest_test_list %}
+    <li><a href="{% url 'tests:detail' test.id %}">{{ test.test_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tests are available.</p>
+{% endif %}

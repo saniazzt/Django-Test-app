@@ -1,0 +1,16 @@
+<form action="{% url 'tests:answer' test.id %}" method="post">
+{% csrf_token %}
+{% for question in test.question_set.all %}
+    <fieldset>
+        <legend for="question{{ forloop.counter }}"><h1>{{ question.question_text }}</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice_{{question.pk}}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        <br>{% endfor %}   
+    </fieldset>
+{% endfor %}  
+<br>
+<input type="submit" value="save">
+</form>
+
