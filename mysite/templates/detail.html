@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ test.title }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">{{ test.title }}</h2>
+
+<form method="post" action="{% url 'tests:answer' test.id %}">
+  {% csrf_token %}
+  {% for question in test.question_set.all %}
+    <div class="mb-4">
+      <h5>{{ forloop.counter }}. {{ question.question_text }}</h5>
+      {% for choice in question.choice_set.all %}
+        <div class="form-check">
+          <input 
+            class="form-check-input" 
+            type="radio" 
+            name="choice_{{ question.pk }}" 
+            value="{{ choice.pk }}" 
+            required
+          >
+          <label class="form-check-label">{{ choice.choice_text }}</label>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

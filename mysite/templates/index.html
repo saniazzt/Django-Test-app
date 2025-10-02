@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Available Tests{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Available Tests</h2>
+<div class="list-group">
+  {% for test in latest_test_list %}
+    <a href="{% url 'tests:detail' test.id %}" class="list-group-item list-group-item-action">
+      <h5 class="mb-1">{{ test.test_text }}</h5>
+      <p class="mb-1 text-muted">{{ test.description }}</p>
+      <small class="text-secondary">Published: {{ test.pub_date|date:"M d, Y" }}</small>
+    </a>
+  {% empty %}
+    <p class="text-muted">No tests available yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
